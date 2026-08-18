@@ -17,7 +17,7 @@ const transporter = nodemailer.createTransport({
 
 
 exports.sendOtpEmail = async(email ,otp)=>{
-    try {
+    
     await transporter.sendMail({
     from: `"OTP Verification" <${process.env.EMAIL_USER}>`, // sender address
     to: email,
@@ -25,7 +25,4 @@ exports.sendOtpEmail = async(email ,otp)=>{
     html: `<h2> Your OTP is : ${otp} </h2> <p>Valid for 5 minutes</p>`
   });
 
-} catch (err) {
-  console.error("Error while sending mail:", err);
-}
 }
