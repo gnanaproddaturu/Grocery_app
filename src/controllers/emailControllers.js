@@ -101,7 +101,7 @@ if (!user.otp || user.otp.trim() !== enteredOtp) {
     });
 
   } catch (error) {
-    console.log("VERIFY ERROR:", error);
+ 
     res.status(500).json({ message: error.message });
   }
 };
