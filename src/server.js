@@ -10,7 +10,7 @@ dotEnv.config()
 console.log('content mongos ', process.env.MONGO_URI)
 
 
-const PORT = process.env.PORT || 8000
+const PORT =  8000
 
 
 

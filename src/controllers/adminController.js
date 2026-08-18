@@ -12,7 +12,7 @@ exports.adminRegister = async(req , res)=>{
         // const adminRecord = awiat Admin.findOne({email})
         const adminRecord = await Admin.findOne({email})
         if(adminRecord){
-            return res.staths(400).json({message :"email already exists"})
+            return res.status(400).json({message :"email already exists"})
         }
         
         const hashedPassword = await bcrypt.hash(password , 10)
