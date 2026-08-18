@@ -68,7 +68,7 @@ exports.verifyOtp = async (req, res) => {
     console.log("OTP expiry:", user.otpExpires);
     console.log("OTP type:", typeof user.otp);
 
-    if (!user.otp || user.otp !== String(otp)) {
+    if (!user.otp || user.otp !== otp) {
       return res.status(400).json({
         message: "Invalid OTP",
       });
@@ -92,7 +92,7 @@ exports.verifyOtp = async (req, res) => {
       success: true,
       token,
     });
-    
+
   } catch (error) {
     console.log("VERIFY ERROR:", error);
     res.status(500).json({ message: error.message });
