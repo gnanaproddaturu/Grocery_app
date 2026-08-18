@@ -68,11 +68,18 @@ exports.verifyOtp = async (req, res) => {
     console.log("OTP expiry:", user.otpExpires);
     console.log("OTP type:", typeof user.otp);
 
-    if (!user.otp || user.otp !== otp) {
-      return res.status(400).json({
-        message: "Invalid OTP",
-      });
-    }
+
+
+    const enteredOtp = String(otp).trim();
+
+if (!user.otp || user.otp.trim() !== enteredOtp) {
+  return res.status(400).json({
+    message: "Invalid OTP",
+  });
+}
+
+
+
     if (user.otpExpires < Date.now()) {
       return res.status(400).json({ message: "Invalid Expired........" });
     }
