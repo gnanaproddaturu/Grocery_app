@@ -1,17 +1,24 @@
 
 
-const controller = require("../controllers/productController")
-const upload = require("../middleware/imageMiddleware")
-const protected = require("../middleware/adminMiddleware")
 
-const express = require("express")
+const express = require("express");
 
+const controller = require("../controllers/productControllers");
+const upload = require("../middleware/imageMiddleware");
+const protected = require("../middleware/adminMiddleware");
 
-const router = express.Router()
+const router = express.Router();
 
+router.post(
+    "/add-product",
+    protected.adminMiddleware,
+    upload.single("image"),
+    controller.createProduct
+);
 
-router.post("/add-product", protected.adminMiddleware,upload.single("image") , controller.createProduct)
-router.get("/show-products",controller.getProducts)
+router.get(
+    "/show-products",
+    controller.getProducts
+);
 
-
-module.exports = router
+module.exports = router;

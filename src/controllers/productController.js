@@ -1,31 +1,56 @@
 
 
 
-const Product = require("../models/Products")
 
 
-exports.createProduct= async(req,res)=>{
+
+
+const Product = require("../models/Product");
+
+exports.createProduct = async (req, res) => {
     try {
-        const {name, descriptione, price, category, unit,unitValue} = req.body
-        const image =req.file? `/uploads/products/${req.file.filename}` : null
+        const {
+            name,
+            description,
+            price,
+            category,
+            unitValue,
+            unit,
+            isActive,
+        } = req.body;
 
-        const products = await Product.create({
-            name ,descriptione,price, category, unit,unitValue ,image
-        })
+        const image = req.file
+            ? `/uploads/products/${req.file.filename}`
+            : null;
 
-        const existingProduct = await Product.findOne({name : name.trim()})
-        
-        if(existingProduct){
-            return res.status(400).json({message : "product alrady existed"})
-        }
-       
-        return res.status(200).json({message :"products add",products})
-        
+        const product = await Product.create({
+            name,
+            description,
+            price,
+            category,
+            unitValue,
+            unit,
+            isActive,
+            image,
+        });
+
+        return res.status(201).json({
+            success: true,
+            message: "Product added successfully",
+            product,
+        });
     } catch (error) {
-        console.error("somthing wrong",error.message)
-    }
-}
+        console.error(
+            "Create product error:",
+            error.message
+        );
 
+        return res.status(500).json({
+            success: false,
+            message: error.message,
+        });
+    }
+};
 
 
 exports.getProducts = async(req,res)=>{

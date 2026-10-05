@@ -13,7 +13,8 @@ exports.adminMiddleware = (req , res , next)=>{
     }
     try {
         const decoded = jwt .verify(token , process.env.JWT_SECRET)
-        req.adminId = decoded.adminId
+        //   req.userId = decoded.userId;
+          req.adminId = decoded.adminId;
         next()
     } catch (error) {
         return res.status(403).json({message : "invalid token"})

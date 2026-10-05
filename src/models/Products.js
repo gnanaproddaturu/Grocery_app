@@ -1,43 +1,78 @@
+
+
+
 const mongoose = require("mongoose");
 
-const Category_Enum = ["vagetables ", "fruits", "food-grains"];
-const Unit_Enum = ["piece", "kg", "gram", "liter", "ml", "pack"];
+const CATEGORY_ENUM = [
+    "vegetables",
+    "fruits",
+    "food-grains",
+];
+
+const UNIT_ENUM = [
+    "piece",
+    "kg",
+    "gram",
+    "liter",
+    "ml",
+    "pack",
+];
 
 const productSchema = new mongoose.Schema(
-  {
-    name: {
-      type: String,
-      required: true,
+    {
+        name: {
+            type: String,
+            required: true,
+            trim: true,
+        },
+
+        description: {
+            type: String,
+            required: true,
+            trim: true,
+        },
+
+        price: {
+            type: Number,
+            required: true,
+            min: 0,
+        },
+
+        category: {
+            type: String,
+            required: true,
+            enum: CATEGORY_ENUM,
+        },
+
+        unitValue: {
+            type: Number,
+            required: true,
+            min: 0,
+        },
+
+        unit: {
+            type: String,
+            required: true,
+            enum: UNIT_ENUM,
+        },
+
+        image: {
+            type: String,
+            default: null,
+        },
+
+        isActive: {
+            type: Boolean,
+            default: true,
+        },
     },
-    descriptione: {
-      type: String,
-      required: true,
-    },
-    price: {
-      type: Number,
-      required: true,
-    },
-    category: {
-      type: String,
-      valuse: Category_Enum,
-    },
-    unitValue: {
-      type: Number,
-      required: true,
-      min: 0,
-    },
-    unit: {
-      type: String,
-      valuse: Unit_Enum,
-    },
-    image: {
-      type: String,
-    },
-    isActive: {
-      type: Boolean,
-    },
-  },
-  { timestamps: true },
+    {
+        timestamps: true,
+    }
 );
 
-module.exports = mongoose.model("Product", productSchema);
+module.exports = mongoose.model(
+    "Product",
+    productSchema
+);
+
